@@ -2,13 +2,13 @@ import { createGlobalStyle } from "styled-components";
 
 export default {
   title: "light",
-  color: {
+  colors: {
     primary: "#DCDCDC",
     secondary: "#FFF",
     tertiary: "#F5F5F5",
 
     white: "#000",
-    black: "#FFF",
+    black: "#000",
     gray: "#BFBFBF",
 
     success: "#03BB85",
