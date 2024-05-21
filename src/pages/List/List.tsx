@@ -1,9 +1,11 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Content } from "./styles";
 import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
-import dark from "../../styles/themes/dark";
+import { useTheme } from "styled-components";
+import { HistoryFinanceCard } from "../../components/HistoryFinanceCard/HistoryFinanceCard";
 const List: React.FC = () => {
+  const theme = useTheme();
   const options = [
     {
       value: "Marcola",
@@ -16,9 +18,103 @@ const List: React.FC = () => {
   ];
   return (
     <Container>
-      <ContentHeader title="Entradas" lineColor={dark.colors.warning}>
+      <ContentHeader title="Entradas" lineColor={theme.colors.warning}>
         <SelectInput options={options} />
       </ContentHeader>
+      <Content>
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+        <HistoryFinanceCard
+          cardColor={theme.colors.tertiary}
+          tagColor={theme.colors.warning}
+          title="Conta de luz"
+          subtitle="21/05/2024"
+          amount="399"
+        />
+      </Content>
     </Container>
   );
 };
