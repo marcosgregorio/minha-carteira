@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import Dashboard from "./pages/Dashbord";
+import Dashboard from "./pages/Dashbord/Dashbord";
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
