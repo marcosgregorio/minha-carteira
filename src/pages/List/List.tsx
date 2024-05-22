@@ -7,20 +7,40 @@ import { HistoryFinanceCard } from "../../components/HistoryFinanceCard/HistoryF
 import Content from "../../components/Content/Content";
 const List: React.FC = () => {
   const theme = useTheme();
-  const options = [
+  const months = [
     {
-      value: "Marcola",
-      label: "marcola",
+      value: 7,
+      label: "Junho",
     },
     {
-      value: "Maria",
-      label: "maria",
+      value: 8,
+      label: "Agosto",
+    },
+    {
+      value: 9,
+      label: "Setembro",
     },
   ];
+  const years = [
+    {
+      value: 2024,
+      label: 2024,
+    },
+    {
+      value: 2023,
+      label: 2023,
+    },
+    {
+      value: 2022,
+      label: 2022,
+    },
+  ];
+
   return (
     <Container>
       <ContentHeader title="Entradas" lineColor={theme.colors.warning}>
-        <SelectInput options={options} />
+        <SelectInput options={months} />
+        <SelectInput options={years} />
       </ContentHeader>
       <Content>
         <HistoryFinanceCard
