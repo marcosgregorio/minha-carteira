@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Container, Filters } from "./styles";
 import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
 import { HistoryFinanceCard } from "../../components/HistoryFinanceCard/HistoryFinanceCard";
 import Content from "../../components/Content/Content";
-const List: React.FC = () => {
+
+type ListProps = {};
+const List: React.FC<ListProps> = () => {
+  // const { type } = match.params;
   const theme = useTheme();
+  // const title = useMemo(() => {
+  // return type == "entry-balance" ? "Entrada" : "Saidas";
+  // }, [type]);
   const months = [
     {
       value: 7,
