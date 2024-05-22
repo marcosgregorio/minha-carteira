@@ -1,15 +1,11 @@
 import styled from "styled-components";
 
-type ContainerProps = {
-  color: string;
-};
-
 type TagProps = {
   color: string;
 };
 
-export const Container = styled.div<ContainerProps>`
-  background-color: ${(props) => props.color};
+export const Container = styled.div`
+  background-color: ${(props) => props.theme.colors.tertiary};
   border-radius: 5px;
 
   margin: 10px 0;

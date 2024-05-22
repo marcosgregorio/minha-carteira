@@ -1,7 +1,6 @@
 import { Amount, Container, ContainerTitle, Subtitle, Tag, Title } from "./styled";
 
 type HistoryFinanceCardProps = {
-  cardColor: string;
   tagColor: string;
   title: string;
   subtitle: string;
@@ -9,14 +8,13 @@ type HistoryFinanceCardProps = {
 };
 
 export const HistoryFinanceCard: React.FC<HistoryFinanceCardProps> = ({
-  cardColor,
   tagColor,
   title,
   subtitle,
   amount,
 }) => {
   return (
-    <Container color={cardColor}>
+    <Container>
       <Tag color={tagColor}></Tag>
       <ContainerTitle>
         <Title>{title}</Title>
