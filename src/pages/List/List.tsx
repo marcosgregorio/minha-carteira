@@ -44,7 +44,7 @@ const List: React.FC<ListProps> = () => {
 
   return (
     <Container>
-      <ContentHeader title="Entradas" lineColor={theme.colors.warning}>
+      <ContentHeader title="Entradas" linecolor={theme.colors.warning}>
         <SelectInput options={months} />
         <SelectInput options={years} />
       </ContentHeader>

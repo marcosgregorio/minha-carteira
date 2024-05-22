@@ -5,12 +5,12 @@ import { SelectInput } from "../SelectInput/SelectInput";
 type ContentHeaderProps = {
   title: string;
   children: React.ReactNode;
-  lineColor: string;
+  linecolor: string;
 };
-export const ContentHeader: React.FC<ContentHeaderProps> = ({ title, children, lineColor }) => {
+export const ContentHeader: React.FC<ContentHeaderProps> = ({ title, children, linecolor }) => {
   return (
     <Container>
-      <TitleContainer lineColor={lineColor}>
+      <TitleContainer linecolor={linecolor}>
         <h1>{title}</h1>
       </TitleContainer>
       <Controllers>{children}</Controllers>

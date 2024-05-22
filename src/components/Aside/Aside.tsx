@@ -2,8 +2,11 @@ import { Container, Header, LogImg, MenuContainer, MenuItemLink, Title } from ".
 import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from "react-icons/md";
 
 import logoImg from "../../assets/logo.svg";
+import { useParams } from "react-router-dom";
 
 const Aside: React.FC = () => {
+  const { type } = useParams();
+
   return (
     <Container>
       <Header>

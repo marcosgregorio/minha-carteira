@@ -12,38 +12,6 @@ import Dashboard from "../pages/Dashbord/Dashbord";
 import List from "../pages/List/List";
 import { Layout } from "../components/Layout/Layout";
 
-// const routes = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <div>Oiiii</div>,
-//     errorElement: <div>Erroooor</div>,
-//   },
-//   {
-//     path: "/dashboard",
-//     element: <Dashboard />,
-//   },
-//   {
-//     path: "/list",
-//     children: [
-//       {
-//         path: "/list/:type",
-//         element: <List />,
-//       },
-//     ],
-//   },
-// ]);
-// const routes = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route path="/" element={<div>Elemento root</div>}>
-//       <Route errorElement={<div>Errooooor</div>}></Route>
-//       <Route path="dashboard" element={<Dashboard />} />
-
-//       <Route path="list/:type" element={<List />}>
-//         <Route path="entry" />
-//         <Route path="out" />
-//       </Route>
-//     </Route>
-//   )
 export const AppRoutes: React.FC = () => (
   <Layout>
     <BrowserRouter>
