@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Filters } from "./styles";
 import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
@@ -42,6 +42,14 @@ const List: React.FC = () => {
         <SelectInput options={months} />
         <SelectInput options={years} />
       </ContentHeader>
+      <Filters>
+        <button type="button" className="tag-filter tag-filter-recurrent">
+          Recorrentes
+        </button>
+        <button type="button" className="tag-filter tag-filter-eventual">
+          Eventuais
+        </button>
+      </Filters>
       <Content>
         <HistoryFinanceCard
           tagColor={theme.colors.warning}
