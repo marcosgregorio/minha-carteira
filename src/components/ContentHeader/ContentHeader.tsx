@@ -1,6 +1,5 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Container, Controllers, TitleContainer } from "./styles";
-import { SelectInput } from "../SelectInput/SelectInput";
 
 type ContentHeaderProps = {
   title: string;

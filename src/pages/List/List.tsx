@@ -5,14 +5,16 @@ import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
 import { HistoryFinanceCard } from "../../components/HistoryFinanceCard/HistoryFinanceCard";
 import Content from "../../components/Content/Content";
+import { useParams } from "react-router-dom";
 
 type ListProps = {};
 const List: React.FC<ListProps> = () => {
-  // const { type } = match.params;
+  const { type } = useParams();
+
   const theme = useTheme();
-  // const title = useMemo(() => {
-  // return type == "entry-balance" ? "Entrada" : "Saidas";
-  // }, [type]);
+  const title = useMemo(() => {
+    return type == "entry" ? "Entradas" : "Saidas";
+  }, [type]);
   const months = [
     {
       value: 7,
@@ -44,7 +46,7 @@ const List: React.FC<ListProps> = () => {
 
   return (
     <Container>
-      <ContentHeader title="Entradas" linecolor={theme.colors.warning}>
+      <ContentHeader title={title} linecolor={theme.colors.warning}>
         <SelectInput options={months} />
         <SelectInput options={years} />
       </ContentHeader>
