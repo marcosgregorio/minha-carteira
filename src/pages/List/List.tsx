@@ -9,12 +9,13 @@ import { useParams } from "react-router-dom";
 
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 type ListProps = {};
 interface ResponseData {
   description: string;
   amount: number | string;
-  frequency: string;
+  frequency: "eventual" | "recorrente" | string;
   date?: string;
 }
 interface ReportDataProps extends ResponseData {
@@ -42,7 +43,7 @@ const List: React.FC<ListProps> = () => {
     const reportData: ResponseData[] = isEntry ? gains : expenses;
     const filteredData: ReportDataProps[] = reportData.map((data, index) => {
       const formattedDate = data.date?.split("-").reverse().join("/") ?? "";
-      const tagColor = pageProperties.underscoreColor;
+      const tagColor = data.frequency === "eventual" ? theme.colors.success : theme.colors.warning;
       return {
         id: index,
         description: data.description,
@@ -105,7 +106,7 @@ const List: React.FC<ListProps> = () => {
             tagColor={data.tagColor}
             title={data.description}
             subtitle={data.formattedDate}
-            amount={data.formattedDate}
+            amount={formatCurrency(Number(data.amount))}
           />
         ))}
         <HistoryFinanceCard
