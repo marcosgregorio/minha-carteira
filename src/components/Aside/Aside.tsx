@@ -2,7 +2,6 @@ import { Container, Header, LogImg, MenuContainer, MenuItemLink, Title } from ".
 import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from "react-icons/md";
 
 import logoImg from "../../assets/logo.svg";
-import { useParams } from "react-router-dom";
 
 const Aside: React.FC = () => {
   return (
@@ -12,19 +11,19 @@ const Aside: React.FC = () => {
         <Title>Minha Carteira</Title>
       </Header>
       <MenuContainer>
-        <MenuItemLink href="dashboard">
+        <MenuItemLink to="dashboard">
           <MdDashboard />
           Dashboard
         </MenuItemLink>
-        <MenuItemLink href="/list/entry">
+        <MenuItemLink to="/list/entry">
           <MdArrowUpward />
           Entradas
         </MenuItemLink>
-        <MenuItemLink href="/list/out">
+        <MenuItemLink to="/list/out">
           <MdArrowDownward />
           Saidas
         </MenuItemLink>
-        <MenuItemLink href="/menu">
+        <MenuItemLink to="/menu">
           <MdExitToApp />
           Sair
         </MenuItemLink>
