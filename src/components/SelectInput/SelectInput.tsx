@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "./styles";
-import Select from "react-select";
+import Select, { SingleValue } from "react-select";
 import { useTheme } from "styled-components";
 
 type SelectInputProps = {
@@ -8,9 +8,10 @@ type SelectInputProps = {
     value: string | number;
     label: string | number;
   }[];
+  onChange: (value?: string | number) => void;
 };
 
-export const SelectInput: React.FC<SelectInputProps> = ({ options }) => {
+export const SelectInput: React.FC<SelectInputProps> = ({ options, onChange }) => {
   const theme = useTheme();
   const noOptionMessage = {
     inputValue: "Sem opcoes ;(",
@@ -20,7 +21,10 @@ export const SelectInput: React.FC<SelectInputProps> = ({ options }) => {
     <Container>
       <Select
         inputValue=""
-        onChange={() => console.log("mudeii")}
+        onChange={(newValue) => {
+          const value = newValue?.value;
+          onChange(value);
+        }}
         onInputChange={() => console.log("mudeii input change")}
         onMenuClose={() => console.log("mudeii menu close")}
         onMenuOpen={() => console.log("mudeii menu open")}

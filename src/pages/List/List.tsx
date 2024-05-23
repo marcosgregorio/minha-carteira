@@ -23,8 +23,12 @@ interface ReportDataProps extends ResponseData {
   formattedDate: string;
   tagColor: string;
 }
+
 const List: React.FC<ListProps> = () => {
   const { type } = useParams();
+
+  const [monthSelected, setMonthSelected] = useState<string | number>();
+  const [yearSelected, setYearSelected] = useState<string | number>();
 
   const [reportTableData, setReportTableData] = useState<ReportDataProps[]>([]);
   const theme = useTheme();
@@ -88,8 +92,8 @@ const List: React.FC<ListProps> = () => {
   return (
     <Container>
       <ContentHeader title={pageProperties.title} linecolor={pageProperties.underscoreColor}>
-        <SelectInput options={months} />
-        <SelectInput options={years} />
+        <SelectInput onChange={(value) => setMonthSelected(value)} options={months} />
+        <SelectInput onChange={(newValue) => setYearSelected(newValue)} options={years} />
       </ContentHeader>
       <Filters>
         <button type="button" className="tag-filter tag-filter-recurrent">
