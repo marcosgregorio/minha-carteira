@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Container, Filters } from "./styles";
 import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
@@ -7,14 +7,54 @@ import { HistoryFinanceCard } from "../../components/HistoryFinanceCard/HistoryF
 import Content from "../../components/Content/Content";
 import { useParams } from "react-router-dom";
 
+import expenses from "../../repositories/expenses";
+import gains from "../../repositories/gains";
+
 type ListProps = {};
+interface ResponseData {
+  description: string;
+  amount: number | string;
+  frequency: string;
+  date?: string;
+}
+interface ReportDataProps extends ResponseData {
+  id: number;
+  formattedDate: string;
+  tagColor: string;
+}
 const List: React.FC<ListProps> = () => {
   const { type } = useParams();
 
+  const [reportTableData, setReportTableData] = useState<ReportDataProps[]>([]);
   const theme = useTheme();
-  const title = useMemo(() => {
-    return type == "entry" ? "Entradas" : "Saidas";
+  const isEntry = type === "entry";
+
+  const pageProperties = useMemo(() => {
+    return isEntry
+      ? {
+          title: "Entradas",
+          underscoreColor: theme.colors.success,
+        }
+      : { title: "Saidas", underscoreColor: theme.colors.warning };
   }, [type]);
+
+  useEffect(() => {
+    const reportData: ResponseData[] = isEntry ? gains : expenses;
+    const filteredData: ReportDataProps[] = reportData.map((data, index) => {
+      const formattedDate = data.date?.split("-").reverse().join("/") ?? "";
+      const tagColor = pageProperties.underscoreColor;
+      return {
+        id: index,
+        description: data.description,
+        amount: data.amount,
+        frequency: data.frequency,
+        formattedDate,
+        tagColor: tagColor,
+      };
+    });
+    setReportTableData(filteredData);
+  }, [type]);
+
   const months = [
     {
       value: 7,
@@ -46,7 +86,7 @@ const List: React.FC<ListProps> = () => {
 
   return (
     <Container>
-      <ContentHeader title={title} linecolor={theme.colors.warning}>
+      <ContentHeader title={pageProperties.title} linecolor={pageProperties.underscoreColor}>
         <SelectInput options={months} />
         <SelectInput options={years} />
       </ContentHeader>
@@ -59,6 +99,15 @@ const List: React.FC<ListProps> = () => {
         </button>
       </Filters>
       <Content>
+        {reportTableData.map((data) => (
+          <HistoryFinanceCard
+            key={data.id}
+            tagColor={data.tagColor}
+            title={data.description}
+            subtitle={data.formattedDate}
+            amount={data.formattedDate}
+          />
+        ))}
         <HistoryFinanceCard
           tagColor={theme.colors.warning}
           title="Conta de luz"
