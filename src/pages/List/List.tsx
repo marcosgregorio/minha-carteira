@@ -34,6 +34,8 @@ const List: React.FC<ListProps> = () => {
     String(new Date().getFullYear())
   );
 
+  const [frequencySelected, setFrequencySelected] = useState(["recorrente", "eventual"]);
+
   const [reportTableData, setReportTableData] = useState<ReportDataProps[]>([]);
   const theme = useTheme();
   const isEntry = type === "entry";
@@ -47,6 +49,17 @@ const List: React.FC<ListProps> = () => {
       : { title: "Saidas", underscoreColor: theme.colors.warning };
   }, [type]);
 
+  const handleClickFilters = (frequency: string) => {
+    const alredySelected = frequencySelected.findIndex((item) => item === frequency);
+
+    if (alredySelected >= 0) {
+      const filtered = frequencySelected.filter((item) => item != frequency);
+      setFrequencySelected(filtered);
+    } else {
+      setFrequencySelected((prev) => [...prev, frequency]);
+    }
+  };
+
   useEffect(() => {
     const reportData: ResponseData[] = isEntry ? gains : expenses;
     const filteredData = reportData.filter((data, index) => {
@@ -54,7 +67,13 @@ const List: React.FC<ListProps> = () => {
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
 
-      return !monthSelected || !yearSelected || (month == monthSelected && year == yearSelected);
+      return (
+        !monthSelected ||
+        !yearSelected ||
+        (month == monthSelected &&
+          year == yearSelected &&
+          frequencySelected.includes(data.frequency))
+      );
     });
 
     const filteredReportData: ReportDataProps[] = filteredData.map((data, index) => {
@@ -71,7 +90,7 @@ const List: React.FC<ListProps> = () => {
       };
     });
     setReportTableData(filteredReportData);
-  }, [type, monthSelected, yearSelected]);
+  }, [type, monthSelected, yearSelected, frequencySelected]);
 
   const months = [
     {
@@ -140,16 +159,28 @@ const List: React.FC<ListProps> = () => {
         />
         <SelectInput
           defaultValue={yearSelected}
-            onChange={(newValue) => setYearSelected(newValue)}
+          onChange={(newValue) => setYearSelected(newValue)}
           options={years}
         />
         {(!yearSelected || !monthSelected) && <h2>Selecione uma data valida</h2>}
       </ContentHeader>
       <Filters>
-        <button type="button" className="tag-filter tag-filter-recurrent">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-recurrent ${
+            frequencySelected.includes("recorrente") && "tag-active"
+          }`}
+          onClick={() => handleClickFilters("recorrente")}
+        >
           Recorrentes
         </button>
-        <button type="button" className="tag-filter tag-filter-eventual">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-eventual ${
+            frequencySelected.includes("eventual") && "tag-active"
+          }`}
+          onClick={() => handleClickFilters("eventual")}
+        >
           Eventuais
         </button>
       </Filters>
