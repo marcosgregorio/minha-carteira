@@ -9,9 +9,14 @@ type SelectInputProps = {
     label: string | number;
   }[];
   onChange: (value?: string | number) => void;
+  defaultValue?: string | number;
 };
 
-export const SelectInput: React.FC<SelectInputProps> = ({ options, onChange }) => {
+export const SelectInput: React.FC<SelectInputProps> = ({ options, onChange, defaultValue }) => {
+  const selectedOption = options.find((option) => {
+    return option.value == defaultValue;
+  });
+
   const theme = useTheme();
   const noOptionMessage = {
     inputValue: "Sem opcoes ;(",
@@ -25,11 +30,13 @@ export const SelectInput: React.FC<SelectInputProps> = ({ options, onChange }) =
           const value = newValue?.value;
           onChange(value);
         }}
+        defaultValue={selectedOption}
         onInputChange={() => console.log("mudeii input change")}
         onMenuClose={() => console.log("mudeii menu close")}
         onMenuOpen={() => console.log("mudeii menu open")}
         options={options}
         placeholder="Selecione ..."
+        isClearable={true}
         styles={{
           control: (baseStyle, state) => ({
             display: "flex",

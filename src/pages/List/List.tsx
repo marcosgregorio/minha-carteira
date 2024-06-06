@@ -27,8 +27,12 @@ interface ReportDataProps extends ResponseData {
 const List: React.FC<ListProps> = () => {
   const { type } = useParams();
 
-  const [monthSelected, setMonthSelected] = useState<string | number>();
-  const [yearSelected, setYearSelected] = useState<string | number>();
+  const [monthSelected, setMonthSelected] = useState<string | number | undefined>(
+    String(new Date().getMonth() + 1)
+  );
+  const [yearSelected, setYearSelected] = useState<string | number | undefined>(
+    String(new Date().getFullYear())
+  );
 
   const [reportTableData, setReportTableData] = useState<ReportDataProps[]>([]);
   const theme = useTheme();
@@ -45,9 +49,18 @@ const List: React.FC<ListProps> = () => {
 
   useEffect(() => {
     const reportData: ResponseData[] = isEntry ? gains : expenses;
-    const filteredData: ReportDataProps[] = reportData.map((data, index) => {
+    const filteredData = reportData.filter((data, index) => {
+      const date = new Date(data.date ?? "");
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+
+      return !monthSelected || !yearSelected || (month == monthSelected && year == yearSelected);
+    });
+
+    const filteredReportData: ReportDataProps[] = filteredData.map((data, index) => {
       const formattedDate = data.date?.split("-").reverse().join("/") ?? "";
       const tagColor = data.frequency === "eventual" ? theme.colors.success : theme.colors.warning;
+
       return {
         id: index,
         description: data.description,
@@ -57,13 +70,37 @@ const List: React.FC<ListProps> = () => {
         tagColor: tagColor,
       };
     });
-    setReportTableData(filteredData);
-  }, [type]);
+    setReportTableData(filteredReportData);
+  }, [type, monthSelected, yearSelected]);
 
   const months = [
     {
-      value: 7,
+      value: 1,
+      label: "Janeiro",
+    },
+    {
+      value: 2,
+      label: "Fevereiro",
+    },
+    {
+      value: 3,
+      label: "Marco",
+    },
+    {
+      value: 4,
+      label: "Abril",
+    },
+    {
+      value: 5,
+      label: "Maio",
+    },
+    {
+      value: 6,
       label: "Junho",
+    },
+    {
+      value: 7,
+      label: "Julho",
     },
     {
       value: 8,
@@ -87,13 +124,26 @@ const List: React.FC<ListProps> = () => {
       value: 2022,
       label: 2022,
     },
+    {
+      value: 2020,
+      label: 2020,
+    },
   ];
 
   return (
     <Container>
       <ContentHeader title={pageProperties.title} linecolor={pageProperties.underscoreColor}>
-        <SelectInput onChange={(value) => setMonthSelected(value)} options={months} />
-        <SelectInput onChange={(newValue) => setYearSelected(newValue)} options={years} />
+        <SelectInput
+          defaultValue={monthSelected}
+          onChange={(value) => setMonthSelected(value)}
+          options={months}
+        />
+        <SelectInput
+          defaultValue={yearSelected}
+            onChange={(newValue) => setYearSelected(newValue)}
+          options={years}
+        />
+        {(!yearSelected || !monthSelected) && <h2>Selecione uma data valida</h2>}
       </ContentHeader>
       <Filters>
         <button type="button" className="tag-filter tag-filter-recurrent">
@@ -104,21 +154,24 @@ const List: React.FC<ListProps> = () => {
         </button>
       </Filters>
       <Content>
-        {reportTableData.map((data) => (
+        {reportTableData.length > 0 ? (
+          reportTableData.map((data) => (
+            <HistoryFinanceCard
+              key={data.id}
+              tagColor={data.tagColor}
+              title={data.description}
+              subtitle={data.formattedDate}
+              amount={formatCurrency(Number(data.amount))}
+            />
+          ))
+        ) : (
           <HistoryFinanceCard
-            key={data.id}
-            tagColor={data.tagColor}
-            title={data.description}
-            subtitle={data.formattedDate}
-            amount={formatCurrency(Number(data.amount))}
+            tagColor={theme.colors.white}
+            title="Sem dados financeiros desse periodo filtrado!"
+            subtitle=""
+            amount=""
           />
-        ))}
-        <HistoryFinanceCard
-          tagColor={theme.colors.warning}
-          title="Conta de luz"
-          subtitle="21/05/2024"
-          amount="399"
-        />
+        )}
       </Content>
     </Container>
   );

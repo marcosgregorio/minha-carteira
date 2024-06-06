@@ -6,6 +6,7 @@ export const Filters = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 0.5em;
 
   .tag-filter {
     font-size: 1em;
