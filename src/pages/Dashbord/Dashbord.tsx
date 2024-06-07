@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Container } from "./styles";
+import { Container, Content } from "./styles";
 import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
+import { Walletbox } from "../../components/Walletbox/Walletbox";
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<string | number | undefined>(
@@ -80,8 +81,30 @@ const Dashboard: React.FC = () => {
           onChange={(newValue) => setYearSelected(newValue)}
           options={years}
         />
-        {/* <SelectInput options={options} /> */}
       </ContentHeader>
+      <Content>
+        <Walletbox
+          title="Saldo"
+          color="#4E41F0"
+          amount={150}
+          footerlabel="Atualizado com base nas entradas e saidas"
+          icon="dolar"
+        />
+        <Walletbox
+          title="Entradas"
+          color="#F7931b"
+          amount={5000}
+          footerlabel="Atualizado com base nas entradas e saidas"
+          icon="arrowUp"
+        />
+        <Walletbox
+          title="Saidas"
+          color="#e44c4e"
+          amount={4850}
+          footerlabel="Atualizado com base nas entradas e saidas"
+          icon="arrowDown"
+        />
+      </Content>
     </Container>
   );
 };
