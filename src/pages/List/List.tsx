@@ -44,7 +44,7 @@ const List: React.FC<ListProps> = () => {
     return isEntry
       ? {
           title: "Entradas",
-          underscoreColor: theme.colors.success,
+          underscoreColor: theme.colors.info,
         }
       : { title: "Saidas", underscoreColor: theme.colors.warning };
   }, [type]);

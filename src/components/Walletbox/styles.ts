@@ -15,7 +15,10 @@ export const Container = styled.div<ContainerProps>`
   overflow: hidden;
 
   position: relative;
-
+  transition: transform 0.3s;
+  &:hover {
+    transform: translateY(-10px);
+  }
   > img {
     position: absolute;
     height: 110%;
