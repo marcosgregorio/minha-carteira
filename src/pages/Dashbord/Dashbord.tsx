@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Container, Content } from "./styles";
 import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
 import { Walletbox } from "../../components/Walletbox/Walletbox";
 import { MessageBox } from "../../components/MessageBox/MessageBox";
+import happyImg from "../../assets/happy.svg";
+import sadImg from "../../assets/sad.svg";
+import expenses from "../../repositories/expenses";
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<string | number | undefined>(
@@ -69,6 +72,25 @@ const Dashboard: React.FC = () => {
       label: 2020,
     },
   ];
+
+  const totalExpenses = useMemo(() => {
+      let total = 0;
+      expenses.forEach(item => {
+        const date = new Date(item.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        debugger
+        if (month === monthSelected && year === yearSelected) {
+          try {
+            total += Number(item.amount);
+          } catch (error) {
+            throw new Error('Invalid amount');
+          }
+        }
+      })
+      return total;
+  }, [monthSelected, yearSelected, expenses]);
+
   return (
     <Container>
       <ContentHeader title="Dashboard" linecolor={`${useTheme().colors.info}`}>
@@ -101,13 +123,16 @@ const Dashboard: React.FC = () => {
         <Walletbox
           title="Saidas"
           color="#e44c4e"
-          amount={4850}
+          amount={totalExpenses}
           footerlabel="Atualizado com base nas entradas e saidas"
           icon="arrowDown"
         />
-      </Content>
-      <Content>
-        <MessageBox />
+      <MessageBox 
+        title="Muito bem!"
+        description="Sua carteira esta positiva!"
+        footerText="Continue assim. Considere investir no seu saldo!"
+        icon={sadImg}
+      />
       </Content>
     </Container>
   );

@@ -1,19 +1,24 @@
 import { Container } from "./styles";
 
-import happyImg from "../../assets/happy.svg";
 
-export const MessageBox = () => {
+type MessageBoxProps = {
+  title: string;
+  description: string;
+  footerText: string;
+  icon: string
+}
+export const MessageBox:React.FC<MessageBoxProps> = ({title, description, footerText, icon}) => {
   return (
     <Container>
       <header>
         <h1>
-          Muito bem!
-          <img src={happyImg} alt="" />
+          {title}
+          <img src={icon} alt="" />
         </h1>
+        <p>{description}</p>
       </header>
-      <p>Sua carteira esta positiva!</p>
       <footer>
-        <span>Continue assim. Considere investir o seu saldo.</span>
+        <span>{footerText}</span>
       </footer>
     </Container>
   );
