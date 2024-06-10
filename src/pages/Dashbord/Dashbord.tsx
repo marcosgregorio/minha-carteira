@@ -4,6 +4,7 @@ import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
 import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
 import { Walletbox } from "../../components/Walletbox/Walletbox";
+import { MessageBox } from "../../components/MessageBox/MessageBox";
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<string | number | undefined>(
@@ -104,6 +105,9 @@ const Dashboard: React.FC = () => {
           footerlabel="Atualizado com base nas entradas e saidas"
           icon="arrowDown"
         />
+      </Content>
+      <Content>
+        <MessageBox />
       </Content>
     </Container>
   );

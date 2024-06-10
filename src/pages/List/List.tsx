@@ -47,13 +47,13 @@ const List: React.FC<ListProps> = () => {
           underscoreColor: theme.colors.info,
         }
       : { title: "Saidas", underscoreColor: theme.colors.warning };
-  }, [type]);
+  }, [isEntry, theme.colors.info, theme.colors.warning]);
 
   const handleClickFilters = (frequency: string) => {
     const alredySelected = frequencySelected.findIndex((item) => item === frequency);
 
     if (alredySelected >= 0) {
-      const filtered = frequencySelected.filter((item) => item != frequency);
+      const filtered = frequencySelected.filter((item) => item !== frequency);
       setFrequencySelected(filtered);
     } else {
       setFrequencySelected((prev) => [...prev, frequency]);
@@ -70,8 +70,8 @@ const List: React.FC<ListProps> = () => {
       return (
         !monthSelected ||
         !yearSelected ||
-        (month == monthSelected &&
-          year == yearSelected &&
+        (month === monthSelected &&
+          year === yearSelected &&
           frequencySelected.includes(data.frequency))
       );
     });
@@ -90,7 +90,7 @@ const List: React.FC<ListProps> = () => {
       };
     });
     setReportTableData(filteredReportData);
-  }, [type, monthSelected, yearSelected, frequencySelected]);
+  }, [isEntry, type, monthSelected, yearSelected, frequencySelected, theme.colors.success, theme.colors.warning]);
 
   const months = [
     {
