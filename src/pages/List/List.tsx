@@ -12,7 +12,7 @@ import gains from "../../repositories/gains";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 type ListProps = {};
-interface ResponseData {
+export interface ResponseData {
   description: string;
   amount: number | string;
   frequency: "eventual" | "recorrente" | string;

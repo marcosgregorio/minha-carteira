@@ -8,12 +8,16 @@ import { MessageBox } from "../../components/MessageBox/MessageBox";
 import happyImg from "../../assets/happy.svg";
 import sadImg from "../../assets/sad.svg";
 import expenses from "../../repositories/expenses";
+import { ResponseData } from "../List/List";
+import gains from "../../repositories/gains";
 
 const Dashboard: React.FC = () => {
-  const [monthSelected, setMonthSelected] = useState<string | number | undefined>(
+  type selectType = string | number | undefined;
+
+  const [monthSelected, setMonthSelected] = useState<selectType>(
     String(new Date().getMonth() + 1)
   );
-  const [yearSelected, setYearSelected] = useState<string | number | undefined>(
+  const [yearSelected, setYearSelected] = useState<selectType>(
     String(new Date().getFullYear())
   );
   const months = [
@@ -73,23 +77,63 @@ const Dashboard: React.FC = () => {
     },
   ];
 
-  const totalExpenses = useMemo(() => {
-      let total = 0;
-      expenses.forEach(item => {
-        const date = new Date(item.date);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        debugger
-        if (month === monthSelected && year === yearSelected) {
-          try {
-            total += Number(item.amount);
-          } catch (error) {
-            throw new Error('Invalid amount');
-          }
+  const calculateTotal = (
+    monthSelected: selectType,
+    yearSelected: selectType,
+    report: ResponseData[]
+  ) => {
+    let total = 0;
+    report.forEach((item) => {
+      const date = new Date(item.date ?? "");
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      if (month === monthSelected && year === yearSelected) {
+        try {
+          total += Number(item.amount);
+        } catch (error) {
+          throw new Error("Invalid amount");
         }
-      })
-      return total;
+      }
+    });
+    return total;
+  };
+
+  const totalGains = useMemo(() => {
+    return calculateTotal(monthSelected, yearSelected, gains);
+  }, [monthSelected, yearSelected, gains]);
+
+  const totalExpenses = useMemo(() => {
+    return calculateTotal(monthSelected, yearSelected, expenses);
   }, [monthSelected, yearSelected, expenses]);
+
+  const totalBalance = useMemo(() => {
+    return totalGains - totalExpenses;
+  }, [totalGains, totalExpenses]);
+
+  const cardBoxMessages = useMemo(() => {
+    if (totalBalance < 0) {
+      return {
+        title: "Que triste!",
+        description: "Neste, mes voce gastou mais do que deveria",
+        footerText: "Verifique suas contas e tente cortar algumas coisas",
+        icon: sadImg,
+      };
+    } else if (totalBalance === 0) {
+      return {
+        title: "Ufa!",
+        description: "Neste, mes voce gastou exatamente o que deveria",
+        footerText: "Verifique suas contas e tente cortar algumas coisas",
+        icon: happyImg,
+      };
+    }
+
+    return {
+      title: "Parabéns!",
+      description: "Neste, mes voce gastou exatamente o que deveria",
+      footerText: "Verifique suas contas e tente cortar algumas coisas",
+      icon: happyImg,
+    };
+  }, [totalBalance]);
 
   return (
     <Container>
@@ -109,14 +153,14 @@ const Dashboard: React.FC = () => {
         <Walletbox
           title="Saldo"
           color="#4E41F0"
-          amount={150}
+          amount={totalBalance}
           footerlabel="Atualizado com base nas entradas e saidas"
           icon="dolar"
         />
         <Walletbox
           title="Entradas"
           color="#F7931b"
-          amount={5000}
+          amount={totalGains}
           footerlabel="Atualizado com base nas entradas e saidas"
           icon="arrowUp"
         />
@@ -127,12 +171,12 @@ const Dashboard: React.FC = () => {
           footerlabel="Atualizado com base nas entradas e saidas"
           icon="arrowDown"
         />
-      <MessageBox 
-        title="Muito bem!"
-        description="Sua carteira esta positiva!"
-        footerText="Continue assim. Considere investir no seu saldo!"
-        icon={sadImg}
-      />
+        <MessageBox
+          title={cardBoxMessages.title}
+          description={cardBoxMessages.description}
+          footerText={cardBoxMessages.footerText}
+          icon={sadImg}
+        />
       </Content>
     </Container>
   );

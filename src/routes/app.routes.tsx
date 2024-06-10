@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-  createRoutesFromElements,
-  BrowserRouter,
-} from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import Dashboard from "../pages/Dashbord/Dashbord";
 import List from "../pages/List/List";
