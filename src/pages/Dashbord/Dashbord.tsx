@@ -10,6 +10,7 @@ import sadImg from "../../assets/sad.svg";
 import expenses from "../../repositories/expenses";
 import { ResponseData } from "../List/List";
 import gains from "../../repositories/gains";
+import { PieChartGraph } from "../../components/PieChartGraph/PieChartGraph";
 
 const Dashboard: React.FC = () => {
   type selectType = string | number | undefined;
@@ -177,6 +178,7 @@ const Dashboard: React.FC = () => {
           footerText={cardBoxMessages.footerText}
           icon={sadImg}
         />
+        <PieChartGraph />
       </Content>
     </Container>
   );
