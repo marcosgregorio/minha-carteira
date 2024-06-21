@@ -1,3 +1,4 @@
+import { indicatorsContainerCSS } from "react-select/dist/declarations/src/components/containers";
 import {
   Container,
   SideLeft,
@@ -6,25 +7,29 @@ import {
   SideRight,
 } from "./styles";
 import { ResponsiveContainer, Pie, Cell, PieChart } from "recharts";
-type PieChartGraphProps = {};
+type PieChartGraphProps = {
+  data: {
+    name: string;
+    value: number;
+    percent?: string;
+    color: string;
+  }[];
+};
 
-export const PieChartGraph: React.FC<PieChartGraphProps> = () => (
+export const PieChartGraph: React.FC<PieChartGraphProps> = ({ data }) => (
   <Container>
     <SideLeft>
       <h2>Relacao</h2>
       <SubtitleContainer>
-        <Subtitle color="blue">
-          <div>5%</div>
-          <span>Entradas</span>
-        </Subtitle>
-        <Subtitle color="red">
-          <div>95%</div>
-          <span>Saidas</span>
-        </Subtitle>
+        {data.map((indicator, i) => (
+          <Subtitle color={indicator.color} key={i}>
+            <div>{indicator.percent}</div>
+            <span>{indicator.name}</span>
+          </Subtitle>
+        ))}
       </SubtitleContainer>
     </SideLeft>
     <SideRight>
-      <div>aaaaa</div>
       <ResponsiveContainer>
         <PieChart>
           <Pie data={[]} labelLine={false} dataKey="percent" />

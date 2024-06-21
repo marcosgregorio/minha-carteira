@@ -111,6 +111,29 @@ const Dashboard: React.FC = () => {
     return totalGains - totalExpenses;
   }, [totalGains, totalExpenses]);
 
+  const relationExpensesGains = useMemo(() => {
+    const total = totalGains + totalExpenses;
+    const percentGains = (totalGains / total) * 100;
+    const percentExpenses = (totalExpenses / total) * 100;
+
+    const obj = [
+      {
+        name: "Entradas",
+        value: totalGains,
+        percent: percentGains.toFixed(1),
+        color: "#F7931B"
+      },
+      {
+        name: "Saidas",
+        value: totalExpenses,
+        percent: percentExpenses.toFixed(1),
+        color: "#E44C4E"
+      },
+    ];
+
+    return obj;
+  }, [totalGains, totalExpenses]);
+
   const cardBoxMessages = useMemo(() => {
     if (totalBalance < 0) {
       return {
@@ -178,7 +201,7 @@ const Dashboard: React.FC = () => {
           footerText={cardBoxMessages.footerText}
           icon={sadImg}
         />
-        <PieChartGraph />
+        <PieChartGraph data={relationExpensesGains} />
       </Content>
     </Container>
   );
