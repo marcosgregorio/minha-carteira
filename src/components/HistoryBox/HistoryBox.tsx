@@ -34,10 +34,12 @@ export const HistoryBox: React.FC<HistoryBoxProps> = ({
       <ChartHeader>
         <h2>Historico de saldo</h2>
         <LegendContainer>
-          <Legend>
+          <Legend color={'#facada'}>
             <div>30%</div>
+            <span>Entradas</span>
           </Legend>
-          <Legend>
+          <Legend color="#ffff">
+            <div>50%</div>
             <span>Saidas</span>
           </Legend>
         </LegendContainer>

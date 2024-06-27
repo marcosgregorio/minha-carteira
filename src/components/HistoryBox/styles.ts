@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface LegendProps {
+  color: string;
+}
+
 export const Container = styled.div`
   width: 100%;
   height: 340px;
@@ -27,11 +31,34 @@ export const ChartHeader = styled.header`
 
 export const LegendContainer = styled.ul`
   list-style: none;
+  display: flex;
+  gap: 1em;
 `;
-
-export const Legend = styled.li``;
 
 export const ChartContainer = styled.div`
   flex: 1;
   height: 260;
+`;
+
+export const Legend = styled.li<LegendProps>`
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  margin-bottom: 7px;
+  > div {
+    background-color: ${(props) => props.color};
+
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+  }
+
+  > span {
+    margin-left: 5px;
+  }
 `;

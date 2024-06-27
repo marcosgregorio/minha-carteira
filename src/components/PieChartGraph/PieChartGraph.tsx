@@ -1,4 +1,3 @@
-import { indicatorsContainerCSS } from "react-select/dist/declarations/src/components/containers";
 import {
   Container,
   SideLeft,
@@ -7,7 +6,6 @@ import {
   SideRight,
 } from "./styles";
 import { ResponsiveContainer, Pie, Cell, PieChart } from "recharts";
-import { useEffect } from "react";
 type PieChartGraphProps = {
   data: {
     name: string;
