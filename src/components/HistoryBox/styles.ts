@@ -16,6 +16,9 @@ export const Container = styled.div`
 `;
 
 export const ChartHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   > h2 {
     margin-bottom: 20px;
     padding-left: 16px;
