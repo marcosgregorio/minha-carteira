@@ -81,44 +81,58 @@ const Dashboard: React.FC = () => {
   ];
 
   const historyData = useMemo(() => {
-    return listOfMonths.map((_, monthIndex) => {
-
-      let amountEntry = 0;
-      gains.forEach((gain) => {
-        const date = new Date(gain.date);
-        const gainMonth = date.getMonth();
-        const gainYear = date.getFullYear();
-        if (gainMonth == monthIndex && gainYear === yearSelected) {
-          try {
-            amountEntry += Number(gain.amount);
-          } catch (error) {
-            throw new Error("AmountEntry nao pode fazer o casting para Number");
+    return listOfMonths
+      .map((_, monthIndex) => {
+        let amountEntry = 0;
+        gains.forEach((gain) => {
+          const date = new Date(gain.date);
+          const gainMonth = date.getMonth();
+          const gainYear = date.getFullYear();
+          if (gainMonth == monthIndex && gainYear === yearSelected) {
+            try {
+              amountEntry += Number(gain.amount);
+            } catch (error) {
+              throw new Error(
+                "AmountEntry nao pode fazer o casting para Number"
+              );
+            }
           }
-        }
-      });
+        });
 
-      let amountOutput = 0;
-      expenses.forEach((expenses) => {
-        const date = new Date(expenses.date);
-        const gainMonth = date.getMonth();
-        const gainYear = date.getFullYear();
-        if (gainMonth == monthIndex && gainYear === yearSelected) {
-          try {
-            amountOutput += Number(expenses.amount);
-          } catch (error) {
-            throw new Error("AmountEntry nao pode fazer o casting para Number");
+        let amountOutput = 0;
+        expenses.forEach((expenses) => {
+          const date = new Date(expenses.date);
+          const gainMonth = date.getMonth();
+          const gainYear = date.getFullYear();
+          if (gainMonth == monthIndex && gainYear === yearSelected) {
+            try {
+              amountOutput += Number(expenses.amount);
+            } catch (error) {
+              throw new Error(
+                "AmountEntry nao pode fazer o casting para Number"
+              );
+            }
           }
-        }
-      });
+        });
 
-      return {
-        monthNumber: monthIndex,
-        month: listOfMonths[monthIndex].substring(0, 3),
-        amountEntry,
-        amountOutput
-      }
-    });
-  }, []);
+        const historyBoxData = {
+          monthNumber: monthIndex,
+          month: listOfMonths[monthIndex].substring(0, 3),
+          amountEntry,
+          amountOutput,
+        };
+        return historyBoxData;
+      })
+      .filter((item) => {
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+
+        return (
+          (yearSelected === currentYear && item.monthNumber <= currentMonth) ||
+          Number(yearSelected) <= currentYear
+        );
+      });
+  }, [yearSelected, gains, expenses]);
 
   const calculateTotal = (
     monthSelected: selectType,
@@ -249,7 +263,11 @@ const Dashboard: React.FC = () => {
         />
         <PieChartGraph data={relationExpensesGains} />
 
-        <HistoryBox />
+        <HistoryBox
+          data={historyData}
+          lineColorAmountEntry="#F7931b"
+          lineColorAmountOutput="#e44c4e"
+        />
       </Content>
     </Container>
   );
