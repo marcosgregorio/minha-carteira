@@ -7,34 +7,41 @@ import {
   SideRight,
 } from "./styles";
 import { ResponsiveContainer, Pie, Cell, PieChart } from "recharts";
+import { useEffect } from "react";
 type PieChartGraphProps = {
   data: {
     name: string;
     value: number;
-    percent?: string;
+    percent: string;
     color: string;
   }[];
 };
-
-export const PieChartGraph: React.FC<PieChartGraphProps> = ({ data }) => (
-  <Container>
-    <SideLeft>
-      <h2>Relacao</h2>
-      <SubtitleContainer>
-        {data.map((indicator, i) => (
-          <Subtitle color={indicator.color} key={i}>
-            <div>{indicator.percent}</div>
-            <span>{indicator.name}</span>
-          </Subtitle>
-        ))}
-      </SubtitleContainer>
-    </SideLeft>
-    <SideRight>
-      <ResponsiveContainer>
-        <PieChart>
-          <Pie data={[]} labelLine={false} dataKey="percent" />
-        </PieChart>
-      </ResponsiveContainer>
-    </SideRight>
-  </Container>
-);
+ 
+export const PieChartGraph: React.FC<PieChartGraphProps> = ({ data }) => {
+  return (
+    <Container>
+      <SideLeft>
+        <h2>Relacao</h2>
+        <SubtitleContainer>
+          {data.map((indicator, i) => (
+            <Subtitle color={indicator.color} key={i}>
+              <div>{indicator.percent}%</div>
+              <span>{indicator.name}</span>
+            </Subtitle>
+          ))}
+        </SubtitleContainer>
+      </SideLeft>
+      <SideRight>
+        <ResponsiveContainer>
+          <PieChart width={400} height={400}>
+            <Pie data={data} dataKey="percent" cx="50%" cy="50%">
+              {data.map((indicator, i) => (
+                <Cell key={indicator.name} fill={indicator.color} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </SideRight>
+    </Container>
+  );
+};

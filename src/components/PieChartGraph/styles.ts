@@ -38,7 +38,6 @@ export const SubtitleContainer = styled.ul`
   padding: 1px;
   max-height: 8em;
   overflow-y: scroll;
-
 `;
 
 export const Subtitle = styled.li<LegendProps>`
@@ -64,4 +63,12 @@ export const Subtitle = styled.li<LegendProps>`
   }
 `;
 
-export const SideRight = styled.main``;
+export const SideRight = styled.main`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+
+  @media (max-width: 1345px) {
+    height: 100%;
+  }
+`;

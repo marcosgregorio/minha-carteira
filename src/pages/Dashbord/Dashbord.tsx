@@ -5,12 +5,14 @@ import { SelectInput } from "../../components/SelectInput/SelectInput";
 import { useTheme } from "styled-components";
 import { Walletbox } from "../../components/Walletbox/Walletbox";
 import { MessageBox } from "../../components/MessageBox/MessageBox";
+import { HistoryBox } from "../../components/HistoryBox/HistoryBox";
 import happyImg from "../../assets/happy.svg";
 import sadImg from "../../assets/sad.svg";
 import expenses from "../../repositories/expenses";
 import { ResponseData } from "../List/List";
 import gains from "../../repositories/gains";
 import { PieChartGraph } from "../../components/PieChartGraph/PieChartGraph";
+import listOfMonths from "../../utils/months";
 
 const Dashboard: React.FC = () => {
   type selectType = string | number | undefined;
@@ -78,6 +80,46 @@ const Dashboard: React.FC = () => {
     },
   ];
 
+  const historyData = useMemo(() => {
+    return listOfMonths.map((_, monthIndex) => {
+
+      let amountEntry = 0;
+      gains.forEach((gain) => {
+        const date = new Date(gain.date);
+        const gainMonth = date.getMonth();
+        const gainYear = date.getFullYear();
+        if (gainMonth == monthIndex && gainYear === yearSelected) {
+          try {
+            amountEntry += Number(gain.amount);
+          } catch (error) {
+            throw new Error("AmountEntry nao pode fazer o casting para Number");
+          }
+        }
+      });
+
+      let amountOutput = 0;
+      expenses.forEach((expenses) => {
+        const date = new Date(expenses.date);
+        const gainMonth = date.getMonth();
+        const gainYear = date.getFullYear();
+        if (gainMonth == monthIndex && gainYear === yearSelected) {
+          try {
+            amountOutput += Number(expenses.amount);
+          } catch (error) {
+            throw new Error("AmountEntry nao pode fazer o casting para Number");
+          }
+        }
+      });
+
+      return {
+        monthNumber: monthIndex,
+        month: listOfMonths[monthIndex].substring(0, 3),
+        amountEntry,
+        amountOutput
+      }
+    });
+  }, []);
+
   const calculateTotal = (
     monthSelected: selectType,
     yearSelected: selectType,
@@ -118,7 +160,7 @@ const Dashboard: React.FC = () => {
       : (totalGains / total) * 100;
     const percentExpenses = isNaN(totalExpenses / total)
       ? 0
-      : (totalGains / total) * 100;
+      : (totalExpenses / total) * 100;
 
     const obj = [
       {
@@ -206,6 +248,8 @@ const Dashboard: React.FC = () => {
           icon={sadImg}
         />
         <PieChartGraph data={relationExpensesGains} />
+
+        <HistoryBox />
       </Content>
     </Container>
   );
