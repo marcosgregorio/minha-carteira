@@ -224,41 +224,47 @@ const Dashboard: React.FC = () => {
     let amountRecurrent = 0;
     let amountEventual = 0;
 
-    expenses.filter((expenses) => {
-      const date = new Date(expenses.date)
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1
+    expenses
+      .filter((expenses) => {
+        const date = new Date(expenses.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
 
-      return month === monthSelected && year === yearSelected;
+        return month === monthSelected && year === yearSelected;
+      })
+      .forEach((expenses) => {
+        if (expenses.frequency === "recorrente") {
+          return (amountEventual += Number(expenses.amount));
+        }
 
-    }).forEach((expenses) => {
-      if (expenses.frequency === 'recorrente') {
-        return amountEventual += Number(expenses.amount);
-      }
-
-      if (expenses.frequency === 'eventual') {
-        return amountRecurrent += Number(expenses.amount);
-      }  
-    })
+        if (expenses.frequency === "eventual") {
+          return (amountRecurrent += Number(expenses.amount));
+        }
+      });
     const total = amountEventual + amountRecurrent;
-    const percentRecurrent = Number((amountRecurrent / total ) * 100).toFixed(1);
-    const percentEventual = Number((amountEventual / total ) * 100).toFixed(1);
+    const percentRecurrent = Number(
+      (isNaN(amountRecurrent / total) ? 0 : amountEventual / total) * 100
+    ).toFixed(1);
+    const percentEventual = Number(
+      (isNaN(amountEventual / total) ? 0 : amountEventual / total) * 100
+    ).toFixed(1);
+    console.log(percentRecurrent, percentEventual, amountEventual / total);
 
     return [
       {
-        name: 'Recorrente',
+        name: "Recorrente",
         amount: amountRecurrent,
         percent: percentRecurrent,
-        color: "#F7931B"
+        color: "#F7931B",
       },
       {
-        name: 'Eventuais',
+        name: "Eventuais",
         amount: amountEventual,
         percent: percentEventual,
-        color: "#E44C4E"
-      }
-    ]
-  }, [yearSelected, monthSelected])
+        color: "#E44C4E",
+      },
+    ];
+  }, [yearSelected, monthSelected]);
 
   return (
     <Container>
@@ -310,7 +316,7 @@ const Dashboard: React.FC = () => {
           lineColorAmountOutput="#e44c4e"
         />
       </Content>
-      <BarChartBox 
+      <BarChartBox
         data={relationExpensesRecurrentVersusEventual}
         title="Saidas"
       />
