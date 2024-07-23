@@ -255,7 +255,7 @@ const Dashboard: React.FC = () => {
         name: 'Eventuais',
         amount: amountEventual,
         percent: percentEventual,
-        color: "#F7931B"
+        color: "#E44C4E"
       }
     ]
   }, [yearSelected, monthSelected])

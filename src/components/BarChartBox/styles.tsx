@@ -18,4 +18,5 @@ export const SideLeft = styled.aside`
 `;
 export const SideRight = styled.main`
     flex: 1;
+    height: 150px;
 `;

@@ -37,7 +37,7 @@ export const LegendContainer = styled.ul`
 
 export const ChartContainer = styled.div`
   flex: 1;
-  height: 260;
+  height: 260px;
 `;
 
 export const Legend = styled.li<LegendProps>`

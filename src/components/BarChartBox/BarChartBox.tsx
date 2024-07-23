@@ -19,7 +19,17 @@ const BarChartBox: React.FC<BarChartBoxProps> = ({ title, data }) => {
             <SideLeft>
                 <h2>{title}</h2>
             </SideLeft>
-            <SideRight>Gráfico direita</SideRight>
+            <SideRight>
+                <ResponsiveContainer>
+                    <BarChart data={data}>
+                        <Bar dataKey={"amount"}>
+                            {data.map((indicator) => (
+                                <Cell key={indicator.name} fill={indicator.color} />
+                            ))}
+                        </Bar>
+                    </BarChart>
+                </ResponsiveContainer>
+            </SideRight>
         </Container>
     );
 };
