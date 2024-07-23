@@ -110,7 +110,7 @@ const Dashboard: React.FC = () => {
               amountOutput += Number(expenses.amount);
             } catch (error) {
               throw new Error(
-                "AmountEntry nao pode fazer o casting para Number"
+                "AmountOutput nao pode fazer o casting para Number"
               );
             }
           }
