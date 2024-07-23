@@ -19,7 +19,7 @@ export const PieChartGraph: React.FC<PieChartGraphProps> = ({ data }) => {
   return (
     <Container>
       <SideLeft>
-        <h2>Relacao</h2>
+        <h2>Relação</h2>
         <SubtitleContainer>
           {data.map((indicator, i) => (
             <Subtitle color={indicator.color} key={i}>
