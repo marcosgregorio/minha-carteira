@@ -13,6 +13,7 @@ import { ResponseData } from "../List/List";
 import gains from "../../repositories/gains";
 import { PieChartGraph } from "../../components/PieChartGraph/PieChartGraph";
 import listOfMonths from "../../utils/months";
+import BarChartBox from "../../components/BarChartBox/BarChartBox";
 
 const Dashboard: React.FC = () => {
   type selectType = string | number | undefined;
@@ -219,6 +220,46 @@ const Dashboard: React.FC = () => {
     };
   }, [totalBalance]);
 
+  const relationExpensesRecurrentVersusEventual = useMemo(() => {
+    let amountRecurrent = 0;
+    let amountEventual = 0;
+
+    expenses.filter((expenses) => {
+      const date = new Date(expenses.date)
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1
+
+      return month === monthSelected && year === yearSelected;
+
+    }).forEach((expenses) => {
+      if (expenses.frequency === 'recorrente') {
+        return amountEventual += Number(expenses.amount);
+      }
+
+      if (expenses.frequency === 'eventual') {
+        return amountRecurrent += Number(expenses.amount);
+      }  
+    })
+    const total = amountEventual + amountRecurrent;
+    const percentRecurrent = Number((amountRecurrent / total ) * 100).toFixed(1);
+    const percentEventual = Number((amountEventual / total ) * 100).toFixed(1);
+
+    return [
+      {
+        name: 'Recorrente',
+        amount: amountRecurrent,
+        percent: percentRecurrent,
+        color: "#F7931B"
+      },
+      {
+        name: 'Eventuais',
+        amount: amountEventual,
+        percent: percentEventual,
+        color: "#F7931B"
+      }
+    ]
+  }, [yearSelected, monthSelected])
+
   return (
     <Container>
       <ContentHeader title="Dashboard" linecolor={`${useTheme().colors.info}`}>
@@ -269,6 +310,10 @@ const Dashboard: React.FC = () => {
           lineColorAmountOutput="#e44c4e"
         />
       </Content>
+      <BarChartBox 
+        data={relationExpensesRecurrentVersusEventual}
+        title="Saidas"
+      />
     </Container>
   );
 };
