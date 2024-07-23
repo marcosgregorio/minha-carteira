@@ -1,7 +1,8 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Legend, LegendContainer } from "./styles";
 import { SideLeft, SideRight } from "../BarChartBox/styles";
 import { ResponsiveContainer, BarChart, Bar, Cell, Tooltip } from "recharts";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 interface BarChartBoxProps {
     title: string;
@@ -18,14 +19,32 @@ const BarChartBox: React.FC<BarChartBoxProps> = ({ title, data }) => {
         <Container>
             <SideLeft>
                 <h2>{title}</h2>
+                <LegendContainer>
+                    {data.map((indicator) => (
+                        <Legend key={indicator.name} color={indicator.color}>
+                            <div>{indicator.percent}</div>
+                            <span>{indicator.name}</span>
+                        </Legend>
+                    ))}
+                </LegendContainer>
             </SideLeft>
             <SideRight>
                 <ResponsiveContainer>
                     <BarChart data={data}>
                         <Bar dataKey={"amount"}>
                             {data.map((indicator) => (
-                                <Cell key={indicator.name} fill={indicator.color} />
+                                <Cell
+                                    key={indicator.name}
+                                    fill={indicator.color}
+                                    cursor={"pointer"}
+                                    lightingColor={"#333"}
+                                />
                             ))}
+                            <Tooltip
+                                formatter={(value) =>
+                                    formatCurrency(Number(value))
+                                }
+                            />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

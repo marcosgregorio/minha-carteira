@@ -20,3 +20,36 @@ export const SideRight = styled.main`
     flex: 1;
     height: 150px;
 `;
+
+export const LegendContainer = styled.ul`
+  list-style: none;
+  display: flex;
+  gap: 1em;
+`
+
+interface LegendProps {
+  color: string;
+}
+
+export const Legend = styled.li<LegendProps>`
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  margin-bottom: 7px;
+  > div {
+    background-color: ${(props) => props.color};
+
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+  }
+
+  > span {
+    margin-left: 5px;
+  }
+`;
