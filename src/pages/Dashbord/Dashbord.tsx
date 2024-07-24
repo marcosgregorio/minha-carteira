@@ -220,6 +220,51 @@ const Dashboard: React.FC = () => {
     };
   }, [totalBalance]);
 
+  const relationGainsRecurrentVersusEventual = useMemo(() => {
+    let amountRecurrent = 0;
+    let amountEventual = 0;
+
+    gains
+      .filter((gain) => {
+        const date = new Date(gain.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+
+        return month === monthSelected && year === yearSelected;
+      })
+      .forEach((gain) => {
+        if (gain.frequency === "recorrente") {
+          return (amountEventual += Number(gain.amount));
+        }
+
+        if (gain.frequency === "eventual") {
+          return (amountRecurrent += Number(gain.amount));
+        }
+      });
+    const total = amountEventual + amountRecurrent;
+    const percentRecurrent = Number(
+      (isNaN(amountRecurrent / total) ? 0 : amountRecurrent / total) * 100
+    ).toFixed(1);
+    const percentEventual = Number(
+      (isNaN(amountEventual / total) ? 0 : amountEventual / total) * 100
+    ).toFixed(1);
+
+    return [
+      {
+        name: "Recorrente",
+        amount: amountRecurrent,
+        percent: percentRecurrent,
+        color: "#F7931B",
+      },
+      {
+        name: "Eventuais",
+        amount: amountEventual,
+        percent: percentEventual,
+        color: "#E44C4E",
+      },
+    ];
+  }, [yearSelected, monthSelected]);
+
   const relationExpensesRecurrentVersusEventual = useMemo(() => {
     let amountRecurrent = 0;
     let amountEventual = 0;
@@ -305,7 +350,7 @@ const Dashboard: React.FC = () => {
           title={cardBoxMessages.title}
           description={cardBoxMessages.description}
           footerText={cardBoxMessages.footerText}
-          icon={sadImg}
+          icon={cardBoxMessages.icon}
         />
         <PieChartGraph data={relationExpensesGains} />
 
