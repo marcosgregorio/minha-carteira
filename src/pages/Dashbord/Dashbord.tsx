@@ -359,11 +359,15 @@ const Dashboard: React.FC = () => {
           lineColorAmountEntry="#F7931b"
           lineColorAmountOutput="#e44c4e"
         />
+        <BarChartBox
+          data={relationGainsRecurrentVersusEventual}
+          title="Entradas"
+        />
+        <BarChartBox
+          data={relationExpensesRecurrentVersusEventual}
+          title="Saidas"
+        />
       </Content>
-      <BarChartBox
-        data={relationExpensesRecurrentVersusEventual}
-        title="Saidas"
-      />
     </Container>
   );
 };
