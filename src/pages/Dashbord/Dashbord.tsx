@@ -243,12 +243,11 @@ const Dashboard: React.FC = () => {
       });
     const total = amountEventual + amountRecurrent;
     const percentRecurrent = Number(
-      (isNaN(amountRecurrent / total) ? 0 : amountEventual / total) * 100
+      (isNaN(amountRecurrent / total) ? 0 : amountRecurrent / total) * 100
     ).toFixed(1);
     const percentEventual = Number(
       (isNaN(amountEventual / total) ? 0 : amountEventual / total) * 100
     ).toFixed(1);
-    console.log(percentRecurrent, percentEventual, amountEventual / total);
 
     return [
       {
