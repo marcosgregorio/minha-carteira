@@ -254,13 +254,13 @@ const Dashboard: React.FC = () => {
         name: "Recorrente",
         amount: amountRecurrent,
         percent: percentRecurrent,
-        color: "#F7931B",
+        color: "#E44C4E",
       },
       {
         name: "Eventuais",
         amount: amountEventual,
         percent: percentEventual,
-        color: "#E44C4E",
+        color: "#F7931B",
       },
     ];
   }, [yearSelected, monthSelected]);
@@ -299,13 +299,13 @@ const Dashboard: React.FC = () => {
         name: "Recorrente",
         amount: amountRecurrent,
         percent: percentRecurrent,
-        color: "#F7931B",
+        color: "#E44C4E",
       },
       {
         name: "Eventuais",
         amount: amountEventual,
         percent: percentEventual,
-        color: "#E44C4E",
+        color: "#F7931B",
       },
     ];
   }, [yearSelected, monthSelected]);
