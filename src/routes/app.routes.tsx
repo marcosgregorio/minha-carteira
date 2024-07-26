@@ -9,13 +9,11 @@ export const AppRoutes: React.FC = () => (
   <Layout>
     <Routes>
       <Route errorElement={<div>Errooooor</div>}></Route>
-      <Route>
-        <Route path="dashboard" element={<Dashboard />} />
+      <Route path="/" element={<Dashboard />} />
 
-        <Route path="list/:type" element={<List />}>
-          <Route path="entry" />
-          <Route path="out" />
-        </Route>
+      <Route path="/list/:type" element={<List />}>
+        <Route path="entry" />
+        <Route path="out" />
       </Route>
     </Routes>
   </Layout>
