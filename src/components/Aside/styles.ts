@@ -50,3 +50,22 @@ export const MenuItemLink = styled(RouterLink)`
     font-size: 18px;
   }
 `;
+
+export const MenuItemButton = styled.button`
+  color: ${(props) => props.theme.colors.info};
+  text-decoration: none;
+
+  margin: 0 7px;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+
+  &:hover {
+    opacity: 0.7;
+  }
+  > svg {
+    font-size: 18px;
+  }
+`;
