@@ -6,21 +6,17 @@ import List from "../pages/List/List";
 import { Layout } from "../components/Layout/Layout";
 
 export const AppRoutes: React.FC = () => (
-  <BrowserRouter>
-    {/* O layout tem que fazer parte do contexto das rotas */}
-    <Layout>
-      <Routes>
-        <Route path="/" element={<div>Elemento root</div>} />
-        <Route errorElement={<div>Errooooor</div>}></Route>
-        <Route>
-          <Route path="dashboard" element={<Dashboard />} />
+  <Layout>
+    <Routes>
+      <Route errorElement={<div>Errooooor</div>}></Route>
+      <Route>
+        <Route path="dashboard" element={<Dashboard />} />
 
-          <Route path="list/:type" element={<List />}>
-            <Route path="entry" />
-            <Route path="out" />
-          </Route>
+        <Route path="list/:type" element={<List />}>
+          <Route path="entry" />
+          <Route path="out" />
         </Route>
-      </Routes>
-    </Layout>
-  </BrowserRouter>
+      </Route>
+    </Routes>
+  </Layout>
 );
