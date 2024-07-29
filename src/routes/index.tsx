@@ -10,7 +10,6 @@ export const ApplicationRoutes: React.FC = () => {
   return (
     <BrowserRouter>
       {logged ? <AppRoutes /> : <AuthRoutes />}
-      <AuthRoutes />
     </BrowserRouter>
   );
 };
