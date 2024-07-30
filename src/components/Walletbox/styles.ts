@@ -27,12 +27,25 @@ export const Container = styled.div<ContainerProps>`
     opacity: 0.3;
   }
   > span {
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: 500;
   }
   > small {
-    font-size: 14px;
+    font-size: 1em;
     position: absolute;
     bottom: 10px;
+  }
+  @media (max-width: 770px) {
+    > span {
+      font-size: 1em;
+    }
+    > h1 {
+      word-wrap: break-word;
+      font-size: 1.5em;
+    }
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
