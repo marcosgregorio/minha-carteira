@@ -14,7 +14,7 @@ export const Toogle: React.FC<ToogleProps> = ({
   labelRight,
 }) => {
   return (
-    <Container>
+    <Container id="toogle-theme">
       <ToogleLabel>{labelLeft}</ToogleLabel>
       <ToogleSelector
         checkedIcon

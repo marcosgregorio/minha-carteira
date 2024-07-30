@@ -3,24 +3,30 @@ import { useMemo, useState } from "react";
 import { emojis } from "../../utils/emoji";
 import { Toogle } from "../Toogle/Toogle";
 import { useTheme } from "../../hooks/theme";
+import hamburguerButton from "../../assets/interface.png";
 
 const Mainheader: React.FC = () => {
   const { toggleTheme, theme } = useTheme();
   const [darkTheme, setDarkTheme] = useState(() => theme.title === "dark");
-  
+
   const emoji = useMemo(() => {
     const index = Math.floor(Math.random() * emojis.length);
     return emojis[index];
   }, []);
-  
+
   const handleChangeTheme = () => {
     setDarkTheme(!darkTheme);
     toggleTheme();
-  }
+  };
 
   return (
     <Container>
-      <Toogle 
+      <button>
+        <div></div>
+        <div></div>
+        <div></div>
+      </button>
+      <Toogle
         checked={darkTheme}
         onChange={handleChangeTheme}
         labelLeft="Light"

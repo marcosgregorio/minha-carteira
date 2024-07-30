@@ -10,6 +10,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
 `;
 
 export const TitleContainer = styled.div<TitleContainerProps>`

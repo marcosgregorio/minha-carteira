@@ -23,6 +23,10 @@ export const Container = styled.div`
     width: 35px;
     margin-left: 7px;
   }
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 `;
 
 export const SideLeft = styled.aside`

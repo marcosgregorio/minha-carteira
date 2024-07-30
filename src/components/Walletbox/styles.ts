@@ -45,7 +45,7 @@ export const Container = styled.div<ContainerProps>`
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 550px) {
     width: 100%;
   }
 `;
