@@ -26,7 +26,6 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
       gap: 3px;
-      /* padding: 2px; */
       width: 40px;
       height: 40px;
       background-color: ${(props) => props.theme.colors.warning};
@@ -37,10 +36,9 @@ export const Container = styled.div`
       opacity: 0.8;
     }
     > button div {
-      width:25px;
+      width: 25px;
       height: 2px;
       background-color: ${(props) => props.theme.colors.white};
-      /* margin: 5px; */
     }
   }
 `;

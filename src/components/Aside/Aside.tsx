@@ -1,14 +1,28 @@
-import { Container, Header, LogImg, MenuContainer, MenuItemButton, MenuItemLink, Title } from "./styles";
-import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from "react-icons/md";
+import {
+  CloseAsideBar,
+  Container,
+  Header,
+  LogImg,
+  MenuContainer,
+  MenuItemButton,
+  MenuItemLink,
+  Title,
+} from "./styles";
+import {
+  MdDashboard,
+  MdArrowDownward,
+  MdArrowUpward,
+  MdExitToApp,
+} from "react-icons/md";
 
 import logoImg from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/auth";
 
 const Aside: React.FC = () => {
-  const {signOut} = useAuth();
+  const { signOut } = useAuth();
 
   return (
-    <Container>
+    <Container id="aside-bar">
       <Header>
         <LogImg src={logoImg} alt="Logo minha carteira" />
         <Title>Minha Carteira</Title>
@@ -31,6 +45,9 @@ const Aside: React.FC = () => {
           Sair
         </MenuItemButton>
       </MenuContainer>
+      <CloseAsideBar>
+        <button> Fechar modal</button>
+      </CloseAsideBar>
     </Container>
   );
 };

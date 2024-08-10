@@ -3,7 +3,6 @@ import { useMemo, useState } from "react";
 import { emojis } from "../../utils/emoji";
 import { Toogle } from "../Toogle/Toogle";
 import { useTheme } from "../../hooks/theme";
-import hamburguerButton from "../../assets/interface.png";
 
 const Mainheader: React.FC = () => {
   const { toggleTheme, theme } = useTheme();
@@ -14,6 +13,14 @@ const Mainheader: React.FC = () => {
     return emojis[index];
   }, []);
 
+  const showAsideMenu = () => {
+    const aside = document.querySelector("#aside-bar") as HTMLElement;
+    if (aside) {
+      console.log(aside.style.display);
+      aside.style.display = aside.style.display === "none" ? "block" : "none";
+    }
+  };
+
   const handleChangeTheme = () => {
     setDarkTheme(!darkTheme);
     toggleTheme();
@@ -21,7 +28,7 @@ const Mainheader: React.FC = () => {
 
   return (
     <Container>
-      <button>
+      <button onClick={showAsideMenu}>
         <div></div>
         <div></div>
         <div></div>
