@@ -21,9 +21,18 @@ import { useAuth } from "../../hooks/auth";
 const Aside: React.FC = () => {
   const { signOut } = useAuth();
 
+  const showAsideMenu = () => {
+    const aside = document.querySelector("#aside-bar") as HTMLElement;
+    if (aside) {
+      console.log(aside.style.display);
+      aside.style.display = aside.style.display === "none" ? "block" : "none";
+    }
+  };
+
   return (
     <Container id="aside-bar">
       <Header>
+        <CloseAsideBar onClick={showAsideMenu}>X</CloseAsideBar>
         <LogImg src={logoImg} alt="Logo minha carteira" />
         <Title>Minha Carteira</Title>
       </Header>
@@ -45,9 +54,6 @@ const Aside: React.FC = () => {
           Sair
         </MenuItemButton>
       </MenuContainer>
-      <CloseAsideBar>
-        <button> Fechar modal</button>
-      </CloseAsideBar>
     </Container>
   );
 };

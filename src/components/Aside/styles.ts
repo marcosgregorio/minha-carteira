@@ -11,10 +11,13 @@ export const Container = styled.div`
   /* border-right: 1px solid ${(props) => props.theme.colors.gray}; */
   box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.5);
   transition: all 0.5s;
-  padding: 1em;
+  padding: 1.5em;
+  height: 100%;
+  
   @media (max-width: 850px) {
-    display: none;
+    /* display: none; */
     position: fixed;
+
     z-index: 1000;
   }
 `;
@@ -42,6 +45,7 @@ export const MenuContainer = styled.nav`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 `;
 
 export const MenuItemLink = styled(RouterLink)`
@@ -72,6 +76,7 @@ export const MenuItemButton = styled.button`
   align-items: center;
   gap: 5px;
   background-color: transparent;
+  font-size: 1em;
 
   &:hover {
     opacity: 0.7;
@@ -82,12 +87,21 @@ export const MenuItemButton = styled.button`
 `;
 
 export const CloseAsideBar = styled.div`
-  margin-top: 70vh;
-  padding: 10px;
-  > button {
-    width: 100%;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.info};
-    border-radius: 15px;
+  @media (min-width: 850px) {
+    display: none;
+  }
+  background-color: ${(props) => props.theme.colors.warning};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5em;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 1s;
+  &:hover {
+    opacity: 0.8;
   }
 `;

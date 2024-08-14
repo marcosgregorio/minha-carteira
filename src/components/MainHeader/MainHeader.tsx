@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { emojis } from "../../utils/emoji";
 import { Toogle } from "../Toogle/Toogle";
 import { useTheme } from "../../hooks/theme";
+import { HamburguerButton } from "../HambuguerButton/HamburguerButton";
 
 const Mainheader: React.FC = () => {
   const { toggleTheme, theme } = useTheme();
@@ -28,11 +29,7 @@ const Mainheader: React.FC = () => {
 
   return (
     <Container>
-      <button onClick={showAsideMenu}>
-        <div></div>
-        <div></div>
-        <div></div>
-      </button>
+      <HamburguerButton clickEvent={showAsideMenu} />
       <Toogle
         checked={darkTheme}
         onChange={handleChangeTheme}
